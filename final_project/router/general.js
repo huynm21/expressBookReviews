@@ -29,8 +29,9 @@ public_users.get('/lu',function (req, res) {
     //---------------------------------------------------------------------
     //return res.status(300).json({message: "Yet to be implemented"});
   });
-
-// Get the book list available in the shop
+//================================================================================
+//==   TASK 10::    Get the book list available in the shop USING promise       ==
+//================================================================================
 public_users.get('/',function (req, res) {
   //Write your code here ------------------------------------------------
     //=== Creating a promise method. The promise will get resolved when timer times out after 6 seconds. =========
@@ -39,58 +40,85 @@ public_users.get('/',function (req, res) {
             resolve(JSON.stringify(books,null,4));
         },500)})
     //=== Console log before calling the promise ==================================================================
-    console.log("Before calling promise");
+    console.log("-----Before calling promise .....");
     //=== Call the promise and wait for it to be resolved and then print a message.
     myPromise.then((successMessage) => {
         res.send(successMessage)
     })
     //=== Console log after calling the promise ===================================================================
-    console.log("After calling promise");
-
-    //res.send(JSON.stringify(books,null,4));
-    //---------------------------------------------------------------------
-    //return res.status(300).json({message: "Yet to be implemented"});
+    console.log("----- After calling promise !!!!!...");
 });
-
-// Get book details based on ISBN
+//================================================================================
+//==   TASK 11::    book details based on ISBN USING promise                    ==
+//================================================================================
 public_users.get('/isbn/:isbn',function (req, res) {
   //Write your code here ------------------------------------------------
-  const isbn = req.params.isbn;
-  res.send(books[isbn])
-  //---------------------------------------------------------------------
-  //return res.status(300).json({message: "Yet to be implemented"});
- });
-  
-// Get book details based on author
-public_users.get('/author/:author',function (req, res) {
-  //Write your code here ------------------------------------------------
-  const author = req.params.author;
-  //--- Loop on books array and get book by author
-    let result = [];
-    for(let x in books){
-        if (books[x]["author"]===author){
-            result.push(books[x]);
-        }
-    }
-    res.send(result);
-  //---------------------------------------------------------------------
-  //return res.status(300).json({message: "Yet to be implemented"});
+    const isbn = req.params.isbn;
+    //=== Creating a promise method. The promise will get resolved when timer times out after 6 seconds. =========
+    let myPromise = new Promise((resolve,reject) => {
+    setTimeout(() => {
+        resolve(books[isbn]);
+    },500)})
+    //=== Console log before calling the promise ==================================================================
+    console.log("-----Before calling promise .....");
+    //=== Call the promise and wait for it to be resolved and then print a message.
+    myPromise.then((successMessage) => {
+        res.send(successMessage)
+    })
+    //=== Console log after calling the promise ===================================================================
+    console.log("----- After calling promise !!!!!...");
 });
-
-// Get all books based on title
+//================================================================================
+//==   TASK 12::     Get book details based on author USING promise             ==
+//================================================================================
+public_users.get('/author/:author',function (req, res) {
+    //Write your code here ------------------------------------------------
+    const author = req.params.author;
+    //--- Loop on books array and get book by author
+    let myPromise = new Promise((resolve,reject) => {
+        setTimeout(() => {
+            let result = [];
+            for(let x in books){
+                if (books[x]["author"]===author){
+                    result.push(books[x]);
+                }
+            }
+            resolve(result);
+    },500)})
+    //=== Console log before calling the promise ==================================================================
+    console.log("-----Before calling promise .....");
+    //=== Call the promise and wait for it to be resolved and then print a message.
+    myPromise.then((successMessage) => {
+            res.send(successMessage)
+    })
+    //=== Console log after calling the promise ===================================================================
+    console.log("----- After calling promise !!!!!...");
+});
+//================================================================================
+//==   TASK 14::     Get all books based on title USING promise                 ==
+//================================================================================
 public_users.get('/title/:title',function (req, res) {
   //Write your code here ------------------------------------------------
   const title = req.params.title;
-  //--- Loop on books array and get book by title
-  let result = [];
-    for(let x in books){
-        if (books[x]["title"]===title){
-            result.push(books[x]);
+  //--- Loop on books array and get book by author
+  let myPromise = new Promise((resolve,reject) => {
+    setTimeout(() => {
+        let result = [];
+        for(let x in books){
+            if (books[x]["title"]===title){
+                result.push(books[x]);
+            }
         }
-    }
-    res.send(result);
-  //---------------------------------------------------------------------
-  //return res.status(300).json({message: "Yet to be implemented"});
+        resolve(result);
+    },500)})
+    //=== Console log before calling the promise ==================================================================
+    console.log("-----Before calling promise .....");
+    //=== Call the promise and wait for it to be resolved and then print a message.
+    myPromise.then((successMessage) => {
+            res.send(successMessage)
+    })
+    //=== Console log after calling the promise ===================================================================
+    console.log("----- After calling promise !!!!!...");
 });
 
 //  Get book review
