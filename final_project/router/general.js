@@ -32,10 +32,24 @@ public_users.get('/lu',function (req, res) {
 
 // Get the book list available in the shop
 public_users.get('/',function (req, res) {
-    //Write your code here ------------------------------------------------
-  res.send(JSON.stringify(books,null,4));
-  //---------------------------------------------------------------------
-  //return res.status(300).json({message: "Yet to be implemented"});
+  //Write your code here ------------------------------------------------
+    //=== Creating a promise method. The promise will get resolved when timer times out after 6 seconds. =========
+    let myPromise = new Promise((resolve,reject) => {
+        setTimeout(() => {
+            resolve(JSON.stringify(books,null,4));
+        },500)})
+    //=== Console log before calling the promise ==================================================================
+    console.log("Before calling promise");
+    //=== Call the promise and wait for it to be resolved and then print a message.
+    myPromise.then((successMessage) => {
+        res.send(successMessage)
+    })
+    //=== Console log after calling the promise ===================================================================
+    console.log("After calling promise");
+
+    //res.send(JSON.stringify(books,null,4));
+    //---------------------------------------------------------------------
+    //return res.status(300).json({message: "Yet to be implemented"});
 });
 
 // Get book details based on ISBN
